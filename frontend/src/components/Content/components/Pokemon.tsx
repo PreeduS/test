@@ -5,7 +5,7 @@ interface IPropTypes {
     name: String,
     types: String[],
     image: String,
-    searchTabType: string | null,
+    searchTabType?: string | null,
     viewType?: any,
 
 }

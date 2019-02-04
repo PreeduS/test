@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import gql from "graphql-tag";
 import {Query, Mutation, ApolloConsumer } from 'react-apollo';
 
+import ListViewContainer from './ListView/ListView';
+
 import Header from '../components/Header'
 import Content from '../components/Content'
 //const { limit, offset, search, filter } = args.query;
@@ -77,26 +79,27 @@ const App = (props) => {
 
                                 //console.log('pokemons zz ',pokemons)
                             //shared
-                            const getPokemons = async (variables: IGetPokemonQueryParams) => {
+                            const getPokemons = async (variables: IGetPokemonQueryParams) => { //both header and content
                                 const { data, ...rest } = await client.query({
                                     query: getPokemonsQuery,
-                                    variables
+                                    variables,
+                                    fetchPolicy:'network-only'
                                 });
 
                                 return data.pokemons.edges;
 
                             }
-                            const resetContentState = () => {
-                                /* if(pokemonsFetchStatus !== null){
+                            /*const resetContentState = () => {
+                                 if(pokemonsFetchStatus !== null){
                                     setPokemonsFetchStatus(null);
                                 }
                                 if(pokemonsFetchStatus !== pokemonsFetchStatusType.pending){
                                     setPokemonsFetchStatus(pokemonsFetchStatusType.pending);
                                 }
-                                */
+                                
                                 scrollOffset = 0;
                                 setPokemons([])
-                            }
+                            }*/
 
                             const getCommonQueryParams = (extend:Object = {}) => {
                                 const queryParams: IGetPokemonQueryParams = {
@@ -105,7 +108,8 @@ const App = (props) => {
                                         offset: 0,
                                         search: searchValue ? searchValue : undefined,
                                         filter:{
-                                            type: searchPokemonType.value === 'All' ? undefined : searchPokemonType.value
+                                            type: searchPokemonType.value === 'All' ? undefined : searchPokemonType.value,
+                                            isFavorite: searchTabType === 'favorite'
                                         },
                                         ...extend
 
@@ -113,7 +117,10 @@ const App = (props) => {
                                 }
                                 return queryParams;
                             }
-
+                 //header && content
+                 const setViewType = (viewType) => {
+                    _setViewType(viewType);
+                }
                             //content logic
                             //on scroll end
                             const loadMorePokemons = async() => {
@@ -134,9 +141,10 @@ const App = (props) => {
                                         offset: scrollOffset,
                                         search: searchValue ? searchValue : undefined,
                                         filter:{
-                                            type: searchPokemonType.value === 'All' ? undefined : searchPokemonType.value
+                                            type: searchPokemonType.value === 'All' ? undefined : searchPokemonType.value,
+                                            isFavorite: searchTabType === 'favorite'
                                         }
-                                        }
+                                    }
                                 }
 
                                 
@@ -161,18 +169,20 @@ const App = (props) => {
                                     setPokemonsFetchStatus(null);
                                 }
                             };
+
+                    
                             //header logic
                             const reloadPokemons = async (queryParams: IGetPokemonQueryParams) =>{
                                 setPokemonsFetchStatus(pokemonsFetchStatusType.pending);
                                 const newPokemons = await getPokemons(queryParams);
-
+                                console.log('reload newPokemons ',newPokemons)
                                 const statePokemons = [ ...newPokemons]
 
                                 setPokemons(statePokemons);
                                 scrollOffset += fetchLimit;
 
-                                if(newPokemons.length === 0){
-                                //if(newPokemons.length < fetchLimit){
+                                //if(newPokemons.length === 0){
+                                if(newPokemons.length < fetchLimit){
                                     setPokemonsFetchStatus(pokemonsFetchStatusType.fulfilled);
                                 }else{
                                     setPokemonsFetchStatus(null);
@@ -214,21 +224,29 @@ const App = (props) => {
                                 }*/
                                 const queryParams = getCommonQueryParams(
                                     {filter:{
-                                        type: type.value === 'All' ? undefined : type.value
+                                        type: type.value === 'All' ? undefined : type.value,
+                                        isFavorite: searchTabType === 'favorite'
                                     }}
                                 );
                                 reloadPokemons(queryParams);
                             }
-                            const setSearchTabType = (type:TabType) => {
+                            const setSearchTabType = (type:TabType) => {  // all/favorite  
                                 //resetContentState();
+                                scrollOffset = 0;
                                 _setSearchTabType(type);
+                                const queryParams = getCommonQueryParams(
+                                    {filter:{
+                                        type: searchPokemonType.value === 'All' ? undefined : searchPokemonType.value,
+                                        isFavorite: type === 'favorite'
+                                    }}
+                                );
+
+                                console.log('setSearchTabType queryParams ',queryParams)
+                                reloadPokemons(queryParams);
                             }
 
 
-                            //header && content
-                            const setViewType = (viewType) => {
-                                _setViewType(viewType);
-                            }
+                   
 
 
                             //todo - add mutation for fav/unfav     && filter:{...} update
@@ -287,10 +305,12 @@ const App = (props) => {
                                         setSearchTabType = {setSearchTabType}
                                         
                                     />
+
+                                    <ListViewContainer />
                                     <Content 
                                         loadMorePokemons = {loadMorePokemons} 
                                         pokemons = {pokemons}
-                                        searchTabType = {searchTabType}
+                                        searchTabType = {undefined}
                                         viewType = {viewType}
                                     />
                                     pokemonsFetchStatus = {pokemonsFetchStatus}

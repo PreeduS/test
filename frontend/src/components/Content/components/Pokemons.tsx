@@ -4,7 +4,7 @@ import Pokemon from './Pokemon';
 
 interface IPropTypes {
     pokemons?: any[],
-    searchTabType: string | null,
+    searchTabType?: string | null,
     viewType?: any,
 
 }
