@@ -1,9 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import Favorite from '../../Commons/Favorite'
 
 interface IPropTypes {
+    id: String,
     name: String,
-    types: String[],
+    isFavorite: Boolean,
+    types?: String[],
     image: String,
     searchTabType?: string | null,
     viewType?: any,
@@ -25,7 +29,8 @@ const Wrapper = styled.div`
 
 
 `;
-const ImageContainer = styled.div`
+//const ImageContainer = styled.div`
+const ImageContainer = styled(NavLink)`
     flex:1;
     background:rgba(220,220,220,.3);
     background:url(${props => props.image});
@@ -66,31 +71,31 @@ const Name = styled.div`
 const Type = styled.div`
 
 `;
-const Favorite = styled.div`
+/*const Favorite = styled.div`
     width:10px;
     height:10px;
     background:red;
     margin-right:20px;
-`;
+`;*/
 
+//   <NavLink exact to={'/pokemon/2'}>route  </NavLink>
+const Pokemon = ({id, name, isFavorite, types, image, searchTabType, viewType}: IPropTypes) => {
 
-const Pokemon = ({name, types, image, searchTabType, viewType}: IPropTypes) => {
-console.log('viewType ',viewType)
     return (
         <Wrapper viewType = {viewType}>
-            <ImageContainer image = {image} viewType = {viewType}>
-            </ImageContainer>
-
+     
+            <ImageContainer image = {image} viewType = {viewType} exact to={`/pokemon/${id}`} />
+       
             <Footer viewType = {viewType}>
                 <FooterContent>
                     <Name>{name}</Name>
                     <Type> {
-                        types.reduce( (acc, value) => 
+                        types && types.reduce( (acc, value) => 
                             `${acc}, ${value}`
                         ,'').substring(1)
                     }</Type>
                 </FooterContent>
-                <Favorite />
+                <Favorite isFavoriteInitValue = {isFavorite} pokemonId ={id}/>
             </Footer>
         
         </Wrapper>

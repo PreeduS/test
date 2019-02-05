@@ -36,15 +36,18 @@ const Wrapper = styled.div`
 
 const Pokemons = ({pokemons, searchTabType, viewType}: IPropTypes) => {
     if(!pokemons){return null;}
+
     return (
         <Wrapper viewType = {viewType}>
             {
                 pokemons.map((pokemon, index) =>
                     <Pokemon 
-                        key = {index} 
+                        key = {pokemon.id} 
                         name = {pokemon.name} 
+                        isFavorite = {pokemon.isFavorite} 
                         types = {pokemon.types} 
                         image = {pokemon.image} 
+                        id = {pokemon.id} 
                         searchTabType = {searchTabType}
                         viewType = {viewType}
                     />
