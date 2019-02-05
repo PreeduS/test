@@ -8,7 +8,6 @@ import ViewType from './components/ViewType';
 const Wrapper = styled.div`
     display:flex;
     flex-direction:column;
-    
 `;
 
 const OptionsMenu = styled.div`
@@ -43,7 +42,7 @@ const Header = (props: IPropTypes) => {
                 <ViewType setViewType = {setViewType} viewType = {viewType}/>
             </OptionsMenu>
     
-            <hr />
+            
         </Wrapper>
     );
 }

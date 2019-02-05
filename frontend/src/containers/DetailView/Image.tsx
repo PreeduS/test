@@ -32,8 +32,7 @@ const Image = ({image}: IPropTypes) => {
 
     return (
         <Wrapper >
-             <ImageContainer image = {image} />
-        
+             <ImageContainer image = {image} />      
         </Wrapper>
     );
 }

@@ -30,7 +30,7 @@ let scrollOffset = 0;
 const fetchLimit = 10;
 
 
-const ListView = (props) => {
+const ListView = () => {
 
     const [pokemons, setPokemons] = useState<Object[]>([]);
     const [pokemonsFetchStatus, setPokemonsFetchStatus] = useState<string|null>(null);
@@ -47,7 +47,7 @@ const ListView = (props) => {
         {client => {
 
             //shared
-            const getPokemons = async (variables: IGetPokemonQueryParams) => { //both header and content
+            const getPokemons = async (variables: IGetPokemonQueryParams) => { 
                 const { data, ...rest } = await client.query({
                     query: getPokemonsQuery,
                     variables,
@@ -115,6 +115,7 @@ const ListView = (props) => {
 
             //effects
             useEffect(() => {
+                setScrollOffset(0)
                 loadMorePokemons();
             },[]);
 
@@ -157,14 +158,11 @@ const ListView = (props) => {
                         setScrollOffset = {setScrollOffset}                       
                         reloadPokemons = {reloadPokemons}
                         setViewType = {_setViewType}
-                        
+              
                     />
-
                 
                     <ContentContainer 
-                        loadMorePokemons = {loadMorePokemons} 
-                        pokemons = {pokemons}
-                    
+                        pokemons = {pokemons}                 
                         viewType = {viewType}
                     />
                     pokemonsFetchStatus = {pokemonsFetchStatus}
@@ -173,39 +171,6 @@ const ListView = (props) => {
             
         }}
     </ApolloConsumer>
-
-
-
-    return <ContentContainer {...props}/>;
-    /*
-    return <Mutation mutation={FAVORITE_POKEMON}>
-        {(favoriteMutation, { data:favData }) => (
-
-         <Mutation mutation={UNFAVORITE_POKEMON}>
-            {(unFavoriteMutation, { data:unFavData }) => (
-                <div>
-                    <div
-                        onClick={e => {  favoriteMutation({ variables: { id: '011'} });  }}
-                        >
-                        favoriteMutation
-                    </div>
-                    <div
-                        onClick={e => {  unFavoriteMutation({ variables: { id: '011'} });  }}
-                        >
-                        unFavoriteMutation
-                    </div>
-                </div>
-            )}
-        </Mutation>
-        
-        
-        
-        )}
-        </Mutation>
-      */
-
-
-
 
 
 

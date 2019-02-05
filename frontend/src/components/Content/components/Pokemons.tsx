@@ -4,7 +4,6 @@ import Pokemon from './Pokemon';
 
 interface IPropTypes {
     pokemons?: any[],
-    searchTabType?: string | null,
     viewType?: any,
 
 }
@@ -25,22 +24,29 @@ const Wrapper = styled.div`
     ${props => props.viewType === 'list' && `
         grid-template-columns: repeat(1, 100%);
         grid-auto-rows: 120px;
-    `||`
+    `}
+
+
+    ${props => props.viewType === 'grid' && `
         grid-template-columns: repeat(auto-fit, 300px);
         grid-auto-rows: 460px;
     `}
 
-
+    ${props => props.viewType === 'grid-small' && `
+        grid-template-columns: repeat(auto-fit, 180px);
+        grid-auto-rows: 240px;
+        justify-content: left;	
+    `}
 
 `;
 
-const Pokemons = ({pokemons, searchTabType, viewType}: IPropTypes) => {
+const Pokemons = ({pokemons, viewType}: IPropTypes) => {
     if(!pokemons){return null;}
 
     return (
         <Wrapper viewType = {viewType}>
             {
-                pokemons.map((pokemon, index) =>
+                pokemons.map((pokemon) =>
                     <Pokemon 
                         key = {pokemon.id} 
                         name = {pokemon.name} 
@@ -48,7 +54,6 @@ const Pokemons = ({pokemons, searchTabType, viewType}: IPropTypes) => {
                         types = {pokemon.types} 
                         image = {pokemon.image} 
                         id = {pokemon.id} 
-                        searchTabType = {searchTabType}
                         viewType = {viewType}
                     />
             )

@@ -20,52 +20,40 @@ const Type = (props: IPropTypes) => {
     } = props;
 
     const options = [
-        /*{ value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }*/
         ...pokemonTypesList
     ];
     const customStyles = {
         container: (provided, state) => ({
             ...provided,
-            border: '1px solid blue',
             display:'flex',
             flex:'1',
+            outline:'none'
         }),
         menu: (provided, state) => ({
             ...provided,
-            border: '1px solid red',
             display:'flex',
             flex:'1',
         }),
         menuList: (provided, state) => ({
             ...provided,
-            border: '1px solid purple',
             display:'flex',
             flexDirection:'column',
             flex:'1',
         }),
         control: (provided, state) => ({
             ...provided,
-            border: '1px solid green',
             display:'flex',
             flex:'1',
         }),
         option: (provided, state) => ({
             ...provided,
-            border: '1px solid yellow',
             display:'flex',
             flex:'1',
         }),
         
     }
 
-        
-    const handleChange = (selectedOption) => {
        
-        console.log(`Option selected:`, selectedOption);
-    }
-
     return (
         <Wrapper>
             <Select

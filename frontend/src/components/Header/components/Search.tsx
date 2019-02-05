@@ -1,18 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-    display:flex;
-    flex:1;
- 
 
-`;
 const Input = styled.input`
     display:flex;
     flex:1;
     height:80px;
     background:rgb(240,240,240);
-    cololr:black;
     padding:5px;
     outline:none;
     border:1px solid grat;

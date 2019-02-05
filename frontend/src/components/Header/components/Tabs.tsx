@@ -31,7 +31,7 @@ interface IPropTypes {
     setSearchTabType: (value:string) => any,
 }
 
-const Tab = (props) => {
+export const Tab = (props) => {
     const {label, selected, onClick} = props;
     return (
         <TabWrapper selected = {selected} onClick = {onClick} >

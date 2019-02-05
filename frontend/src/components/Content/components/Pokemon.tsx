@@ -9,7 +9,6 @@ interface IPropTypes {
     isFavorite: Boolean,
     types?: String[],
     image: String,
-    searchTabType?: string | null,
     viewType?: any,
 
 }
@@ -29,7 +28,7 @@ const Wrapper = styled.div`
 
 
 `;
-//const ImageContainer = styled.div`
+
 const ImageContainer = styled(NavLink)`
     flex:1;
     background:rgba(220,220,220,.3);
@@ -71,20 +70,13 @@ const Name = styled.div`
 const Type = styled.div`
 
 `;
-/*const Favorite = styled.div`
-    width:10px;
-    height:10px;
-    background:red;
-    margin-right:20px;
-`;*/
 
-//   <NavLink exact to={'/pokemon/2'}>route  </NavLink>
-const Pokemon = ({id, name, isFavorite, types, image, searchTabType, viewType}: IPropTypes) => {
+const Pokemon = ({id, name, isFavorite, types, image, viewType}: IPropTypes) => {
 
     return (
         <Wrapper viewType = {viewType}>
      
-            <ImageContainer image = {image} viewType = {viewType} exact to={`/pokemon/${id}`} />
+            <ImageContainer image = {image} viewType = {viewType} exact to={`/pokemon/${name}`} />
        
             <Footer viewType = {viewType}>
                 <FooterContent>

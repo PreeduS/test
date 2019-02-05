@@ -3,19 +3,15 @@ import Pokemons from './components/Pokemons'
 
 interface IPropTypes {
     pokemons?: any[],
-    loadMorePokemons?: any,
-    searchTabType?: string | null,
     viewType?: any,
 
 }
 
-const Content = ({pokemons, loadMorePokemons, searchTabType, viewType}: IPropTypes) => {
+const Content = ({pokemons, viewType}: IPropTypes) => {
   
     return (
         <div >
-            <Pokemons pokemons = {pokemons} searchTabType = {searchTabType} viewType = {viewType}/>
-            <div onClick = {()=>loadMorePokemons()}>load more</div>
-            <hr />
+            <Pokemons pokemons = {pokemons} viewType = {viewType}/>
         </div>
     );
 }

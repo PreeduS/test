@@ -9,7 +9,7 @@ import DetailView from './containers/DetailView';
 
 const routes = [
     {
-        path: '/pokemon/:id',
+        path: '/pokemon/:name',
         component: DetailView
     },
     {
@@ -22,20 +22,12 @@ const routes = [
 const AppRouter = () =>(
     <Router>
         <React.Fragment>
-        <Switch >
-            {routes.map( (route, index) => 
-                <Route key= {index} path={route.path} component = {route.component} />
-            )}                        
-          
-        </Switch> 
-
-
-   
-            {/*routes.map( (route, index) => 
-                <NavLink key= {index} exact to={route.path}>LINK---</NavLink>
-            )*/}
-
-   
+            <Switch >
+                {routes.map( (route, index) => 
+                    <Route key= {index} path={route.path} component = {route.component} />
+                )}                        
+            
+            </Switch>
         </React.Fragment>
     </Router>
 )
