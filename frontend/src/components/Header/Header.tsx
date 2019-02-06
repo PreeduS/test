@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 
 const OptionsMenu = styled.div`
     display:flex;
+    padding:10px 0px;
 `;
 
 interface IPropTypes {

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
     display:flex;
-    height:80px;
+    height:60px;
     border:1px solid gray;
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
     display:flex;
     width:40px;
     height:40px;

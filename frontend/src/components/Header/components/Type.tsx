@@ -27,12 +27,15 @@ const Type = (props: IPropTypes) => {
             ...provided,
             display:'flex',
             flex:'1',
-            outline:'none'
+            outline:'none',
+            margin:'0px 10px ',
+            height:'60px'
         }),
         menu: (provided, state) => ({
             ...provided,
             display:'flex',
             flex:'1',
+            background:'rgb(240,240,240)'
         }),
         menuList: (provided, state) => ({
             ...provided,
@@ -44,6 +47,12 @@ const Type = (props: IPropTypes) => {
             ...provided,
             display:'flex',
             flex:'1',
+            background:'rgb(240,240,240)',
+            boxShadow: state.isFocused ? 0 : 0,
+            border: '1px solid gray',
+            "&:hover": {
+                border: '1px solid gray'
+            }
         }),
         option: (provided, state) => ({
             ...provided,

@@ -35,11 +35,13 @@ const FavoriteWrapper = styled.div`
     `}
     border:1px solid red;
     margin-right:20px;
+    border-radius:10px;
+    cursor:pointer;
+
 `;
 const Favorite = ({isFavoriteInitValue, pokemonId}) => {
 
     const [isFavorite, setIsFavorite] = useState<Boolean>(isFavoriteInitValue);
-    console.log('isFavoriteInitValue ',isFavoriteInitValue, pokemonId)
     return <Mutation mutation={FAVORITE_POKEMON}>
         {(favoriteMutation, { data:favData ,loading:loadingFav, called: calledFav, error:errorFav}) => (
 
@@ -60,7 +62,7 @@ const Favorite = ({isFavoriteInitValue, pokemonId}) => {
                         }
                     ) : null;
              
-                return <FavoriteWrapper selected = {isFavorite} onClick = {clickHandler } loading = {loading}/>
+                return <FavoriteWrapper selected = {isFavorite} onClick = {clickHandler } loading = {loading}> </FavoriteWrapper>
                 
             }}
         </Mutation>

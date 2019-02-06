@@ -2,14 +2,16 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 
-const Input = styled.input`
+export const Input = styled.input`
     display:flex;
     flex:1;
-    height:80px;
+    height:60px;
     background:rgb(240,240,240);
-    padding:5px;
+    padding:15px;
+    font-size:20px;
+    color:rgb(60,60,60);
     outline:none;
-    border:1px solid grat;
+    border:1px solid gray;
     box-shadow:none;
 
 `;

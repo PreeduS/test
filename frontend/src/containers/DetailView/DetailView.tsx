@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import styled from 'styled-components';
 
 import Image from './Image';
+import Sound from './Sound'
 import Evolutions from './Evolutions';
 import Description from './Description';
 
@@ -52,14 +53,15 @@ const DetailView = ({match}) => {
             if(loading){ return <div>loading</div> }
             if(error){ return <div>error</div> }
             const {pokemonByName} = data;
-            const {image, evolutions, maxCP, maxHP, height, weight, types} = pokemonByName;
-            const type = types && types.reduce( (acc, value) => 
+            const {image, evolutions, maxCP, maxHP, height, weight, types,sound} = pokemonByName;
+            const type = types && types.reduce( (acc, value) =>  
                 `${acc}, ${value}`
             ,'').substring(1);
 
         return <Wrapper>
             
                 <Image image = {image} />
+                <Sound sound={sound}/>
                 <Description name = {name} maxCP = {maxCP} maxHP = {maxHP} height = {height} weight = {weight} type = {type} />
                 <Evolutions evolutions = {evolutions} />
                 

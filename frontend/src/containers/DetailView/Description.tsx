@@ -26,7 +26,7 @@ const LineStyle = styled.div`
     margin: auto 0px;
 
 `; 
-const LineLabel = styled.div`
+export const LineLabel = styled.div`
     flex-shrink:0;
     flex-basis:80px;
     margin: auto 0px;
@@ -55,7 +55,7 @@ const BoxHeader = styled.div`
     font-size:1.2rem;
     margin-bottom:10px;
 `;
-const BoxLabel = styled.div``;
+export const BoxLabel = styled.div``;
 
 const Line = ({color, label}) => {
     return <LineWrapper>
